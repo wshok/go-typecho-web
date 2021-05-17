@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="no-js">
+ <head> 
+  {{ template "meta.html" . }}
+  <script type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-50'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-50'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</script> 
+  <script type="text/javascript">
+(function () {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        triggers: ['scroll', 'mousemove', 'keyup', 'touchstart'],
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        triggers: ['onfocus', 'onmousemove', 'onkeyup', 'ontouchstart'],
+        load: 'onload'
+    }, added = false;
+
+    document[event.add](event.load, function () {
+        var r = document.getElementById('respond-post-50'),
+            input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = '_';
+        input.value = (function () {
+    var _xGI = //'sq'
+'7'+/* 'UUS'//'UUS' */''+//'r'
+'69'+//'pj'
+'689'+'3'//'4b'
++'b1'//'aN'
++'5'//'2'
++'f9'//'SLn'
++//'7'
+'1'+'0cc'//'2'
++//'4G'
+'c0'+//'DD7'
+'3'+'kUx'//'kUx'
++//'c'
+'7f'+//'X'
+'X'+'9'//'s'
++'25'//'5A'
++'e0'//'u'
++//'w6'
+'a'+'8a1'//'R'
++//'je'
+'00', _9CHG1G = [[19,22],[21,22]];
+    
+    for (var i = 0; i < _9CHG1G.length; i ++) {
+        _xGI = _xGI.substring(0, _9CHG1G[i][0]) + _xGI.substring(_9CHG1G[i][1]);
+    }
+
+    return _xGI;
+})();
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                function append() {
+                    if (!added) {
+                        forms[0].appendChild(input);
+                        added = true;
+                    }
+                }
+            
+                for (var i = 0; i < event.triggers.length; i ++) {
+                    var trigger = event.triggers[i];
+                    document[event.add](trigger, append);
+                    window[event.add](trigger, append);
+                }
+            }
+        }
+    });
+})();
+</script> 
+
+ </head> 
+ <body> 
+  
+  {{ template "header.html" . }}
+
+  <div id="body"> 
+   <div class="container"> 
+    <div class="row"> 
+     <div class="col-mb-12 col-8" id="main" role="main">
+
+      <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting"> 
+       <h1 class="post-title" itemprop="name headline">
+        <a itemprop="url" href="/archives/{{.Article.Slug|string}}.html">{{ .Article.Title | string }}</a>
+       </h1>
+       {{ if eq "post" (.Article.Type|string) }}
+       <ul class="post-meta"> 
+        <li itemprop="author" itemscope="" itemtype="http://schema.org/Person">作者: <a itemprop="name" href="/author/{{.Article.AuthorId|string}}/" rel="author">{{.Article.Author|string}}</a></li> 
+        <li>时间: <time datetime='{{ .Article.Created | datetime "2006-01-02 15:04:05" }}' itemprop="datePublished">{{ .Article.Created | datetime "2006-01-02"}}</time></li> 
+        <li>分类: <a href="/category/{{ .Article.CategorySlug}}/">{{.Article.CategoryName}}</a></li> 
+       </ul>
+       {{end}}
+       
+       <div class="post-content" itemprop="articleBody">
+        {{.Article.Text | htmlLess }}
+       </div>
+
+       {{ if eq "post" (.Article.Type|string) }}
+       <p itemprop="keywords" class="tags">标签: <a href="/tag/thinkphp/">thinkphp</a>, <a href="/tag/url/">url</a>, <a href="/tag/language/">language</a>
+       </p>
+       {{end}}
+       
+      </article>
+
+      {{ template "comment.html" . }}
+
+      {{ if eq "post" (.Article.Type|string) }}
+      <ul class="post-near"> 
+       <li>上一篇: <a href="/archives/golang-cannot-find-module-providing.html" title="go run, cannot find module providing package working directory is not part">go run, cannot find module providing package working directory is not part</a></li> 
+       <li>下一篇: 没有了</li> 
+      </ul>
+      {{end}}
+     </div> 
+
+     {{ template "sidebar.html" . }}
+
+    </div> 
+   </div> 
+  </div>
+
+  {{template "footer.html" .}}
+
+ </body>
+</html>

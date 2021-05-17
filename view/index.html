@@ -1,0 +1,57 @@
+{{define "index.html"}}
+<!DOCTYPE HTML>
+<html class="no-js">
+  
+  <head>
+    {{ template "meta.html" . }}
+  </head>
+  
+  <body>
+    
+    {{ template "header.html" . }}
+
+    <div id="body">
+      <div class="container">
+        <div class="row">
+          <div class="col-mb-12 col-8" id="main" role="main">
+            {{ range $k, $v := .ArtList }}
+            <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+              <h2 class="post-title" itemprop="name headline">
+                <a itemprop="url" href="/archives/{{ $v.Slug |string }}.html">{{ $v.Title |string }}</a></h2>
+              <ul class="post-meta">
+                <li itemprop="author" itemscope itemtype="http://schema.org/Person">作者:
+                  <a itemprop="name" href="/author/{{ $v.AuthorId |string }}/" rel="author">{{ $v.Author | string }}</a></li>
+                <li>时间:
+                  <time datetime='{{ $v.Created | datetime "2006-01-02 15:04:05" }}' itemprop="datePublished">{{ datetime "2006-01-02" $v.Created }}</time></li>
+                <li>分类:
+                  <a href="/category/{{ $v.CategorySlug | string}}">{{ $v.CategoryName | string}}</a></li>
+                <li itemprop="interactionCount">
+                  <a itemprop="discussionUrl" href="/archives/{{ $v.Slug |string }}.html#comments">评论</a></li>
+              </ul>
+              <div class="post-content" itemprop="articleBody">
+                {{ $v.Text | htmlLess }}
+                {{ if ($v.Text | htmlMore) }}
+                <p class="more">
+                  <a href="/archives/{{ $v.Slug |string }}.html" title="{{ $v.Title |string }}">- 阅读剩余部分 -</a>
+                </p>
+                {{ end }}
+              </div>
+            </article>
+            {{ end }}
+
+
+            {{ .Page }}
+  
+          </div>
+
+          {{ template "sidebar.html" . }}
+
+        </div>
+      </div>
+    </div>
+
+    {{template "footer.html" .}}
+
+  </body>
+</html>
+{{end}}

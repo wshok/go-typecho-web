@@ -1,0 +1,28 @@
+{{ define "sidebar.html"}}
+<div class="col-mb-12 col-offset-1 col-3 kit-hidden-tb" id="secondary" role="complementary">
+<section class="widget">
+  <h3 class="widget-title">最新文章</h3>
+  <ul class="widget-list">
+   {{ range $k, $v := .LastPost }}
+    <li> <a href="archives/{{ $v.Slug |string }}.html">{{ $v.Title |string }}</a> </li>
+   {{ end }}
+  </ul>
+</section>
+<section class="widget">
+  <h3 class="widget-title">分类</h3>
+  <ul class="widget-list">
+    {{ range $k, $v := .Category }}
+    <li class='category-level-0 category-parent'><a href="/category/{{ $v.Slug | string }}/">{{ $v.Name | string }}</a></li>
+    {{ end }}
+  </ul>
+</section>
+<section class="widget">
+  <h3 class="widget-title">归档</h3>
+  <ul class="widget-list">
+    {{ range $k, $v := .Archive }}
+    <li><a href="/{{ $v.Yearmonth}}">{{ $v.Yearmonth}}</a></li>
+    {{ end }}
+  </ul>
+</section>
+</div>
+{{ end }}

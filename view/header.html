@@ -1,0 +1,31 @@
+{{ define "header.html"}}
+
+<!--[if lt IE 8]>
+  <div class="browsehappy" role="dialog">当前网页
+    <strong>不支持</strong>你正在使用的浏览器. 为了正常的访问, 请
+    <a href="http://browsehappy.com/">升级你的浏览器</a>.</div>
+<![endif]-->
+<header id="header" class="clearfix">
+  <div class="container">
+    <div class="row">
+      <div class="site-name col-mb-12 col-9">
+        <a id="logo" href="/">go-typecho-web</a>
+        <p class="description">go-typecho-web-client</p></div>
+      <div class="site-search col-3 kit-hidden-tb">
+        <form id="search" method="post" action="/" role="search">
+          <label for="s" class="sr-only">搜索关键字</label>
+          <input type="text" id="s" name="s" class="text" placeholder="输入关键字搜索" />
+          <button type="submit" class="submit">搜索</button>
+        </form>
+      </div>
+      <div class="col-mb-12">
+        <nav id="nav-menu" class="clearfix" role="navigation">
+          <a class="current" href="/">首页</a>
+          <a href="/about-me.html" title="关于">关于</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+{{ end }}

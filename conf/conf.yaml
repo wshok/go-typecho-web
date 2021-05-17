@@ -1,0 +1,7 @@
+domain:
+addr: :8090
+public: static
+dsn: data/ff2ce8c031752.db?_loc=Asia/Shanghai
+page_size: 5
+signup_enabled: false
+session_secret: test
