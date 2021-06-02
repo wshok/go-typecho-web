@@ -1,2 +1,2 @@
-# go-typecho-web
-typecho blog web golang version
+# go版 typecho blog
+typecho blog golang
