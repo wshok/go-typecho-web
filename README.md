@@ -1,2 +1,3 @@
-# go版 typecho blog
-typecho blog golang
+#### golang版 typecho blog
+
+基于 gin-gonic高性能框架实现
